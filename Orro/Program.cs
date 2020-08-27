@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace Orro
 {
@@ -6,19 +9,13 @@ namespace Orro
     {
         static void Main(string[] args)
         {
-            //Are we going to take the data and transform it? Should we?
-            //We need to be able to take data
-            //  - Data can be anything from a consistent source
-            //      - Could be a bulb, a power sensor, anything
-            //  - Can be partitioned or streamed
-            //  - Can be timely or not, the user needs this choice
+            XOREncryption enc = new XOREncryption();
+            UDPConnection udpConnection = new UDPConnection();
+            IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
+            TP_Link_Kasa bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
+            bulb.ExecuteCommand("{\"system\":{\"get_sysinfo\":\"\"}}");
 
-            //And build up a visualisation of that data and usage
-
-            //And allow the user to build a metric.
-            
-            //We have hand built reports, but also want the user to build reports
-            Console.WriteLine("Hello World!");
+            Console.ReadLine();
         }
     }
 }
