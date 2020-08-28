@@ -51,6 +51,8 @@ namespace Orro
             var resultOfCommandEncrypted = CommunicationMethod.Invoke(encryptedString, socket, DeviceIP);
             
             var decryptedResult = Encryption.DecryptResponse(resultOfCommandEncrypted);
+
+            Console.WriteLine(decryptedResult);
         }
 
         private string DefaultCommunicationMethod(string command, Socket socket, IPEndPoint deviceIP)
