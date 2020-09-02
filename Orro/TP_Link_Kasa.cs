@@ -41,15 +41,15 @@ namespace Orro
 
             //Parameterise the string, lol no parameters
             var parameterisedString = Encryption.ParameteriseCommandString(command, parameters);
-            
+
             //Encrypt the command string
             var encryptedString = Encryption.EncryptCommand(parameterisedString);
-            
+
             var socket = Connection.CreateConnectionSocket(DeviceIP);
-            
+
             //Execuite the actual command
             var resultOfCommandEncrypted = CommunicationMethod.Invoke(encryptedString, socket, DeviceIP);
-            
+
             var decryptedResult = Encryption.DecryptResponse(resultOfCommandEncrypted);
 
             Console.WriteLine(decryptedResult);
@@ -74,13 +74,28 @@ namespace Orro
             return Encoding.GetEncoding("ISO-8859-1").GetString(buffer, 0, result);
         }
 
-        public void ToJson<T>(T instance)
+        public void ToJson<T>(T instance, string location)
         {
             // serialize JSON directly to a file
             using (StreamWriter file = File.CreateText(@"c:\bulbs\bulbs.json"))
             {
                 var result = JsonConvert.SerializeObject(instance, Formatting.Indented, new DeviceConverter());
                 file.Write(result);
+            }
+        }
+
+        public T FromJson<T>(string location)
+        {
+            var JSON = File.ReadAllText(location);
+            var result = JsonConvert.DeserializeObject<T>(JSON, new DeviceCollectionConverter());
+
+            if (result is T)
+            {
+                return result;
+            }
+            else
+            {
+                throw new Exception($"This should ony be used to access {typeof(T)} devices!");
             }
         }
     }

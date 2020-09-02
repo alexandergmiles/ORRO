@@ -3,6 +3,7 @@ using Orro.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 
 namespace Orro
@@ -11,7 +12,11 @@ namespace Orro
     {
         public override DeviceCollection ReadJson(JsonReader reader, Type objectType, [AllowNull] DeviceCollection existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var devices = new DeviceCollection();
+
+            
+
+            return devices;
         }
 
         public override void WriteJson(JsonWriter writer, [AllowNull] DeviceCollection value, JsonSerializer serializer)

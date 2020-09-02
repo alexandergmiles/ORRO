@@ -24,8 +24,9 @@ namespace Orro
             devices.Add(bulb);
             devices.Add(bulb);
 
-            devices.ToJson(devices);
-
+            devices.ToJson(devices, @"C:/bulbs/bulbs.json");
+            var result = devices.FromJson<DeviceCollection>(@"C:/bulbs/bulbs.json");
+            Console.WriteLine(result);
             //bulb.ToJson(bulb);
 
 

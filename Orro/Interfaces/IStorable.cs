@@ -8,20 +8,8 @@ namespace Orro.Interfaces
 {
     interface IStorable
     {
-        T FromJson<T>(string JSON)
-        {
-            var result = JsonConvert.DeserializeObject<T>(JSON);
+        T FromJson<T>(string location);
 
-            if (result is T)
-            {
-                return result;
-            }
-            else
-            {
-                throw new Exception($"This should ony be used to access {typeof(T)} devices!");
-            }
-        }
-
-        void ToJson<T>(T instance);
+        void ToJson<T>(T instance, string location);
     }
 }
