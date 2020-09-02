@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Orro.Interfaces
 {
-    interface IDevice
+    interface IDevice : IStorable
     {
         IEncryption Encryption { get; }
         IConnector Connection { get; }
@@ -19,28 +19,6 @@ namespace Orro.Interfaces
         [JsonIgnore]
         Func<string, Socket, IPEndPoint, string> CommunicationMethod { get; }
         void ExecuteCommand(string command);
-        T FromJson<T>(string JSON)
-        {
-            var result = JsonConvert.DeserializeObject<T>(JSON);
 
-            if (result is T)
-            {
-                return result;
-            }
-            else
-            {
-                throw new Exception($"This should ony be used to access {typeof(T)} devices!");
-            }
-        }
-
-        void ToJson(IDevice instance)
-        {
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(@"c:\bulbs\bulbs.json"))
-            {
-                var result = JsonConvert.SerializeObject(instance, Formatting.Indented, new DeviceConverter());
-                file.Write(result);
-            }
-        }
     }
 }

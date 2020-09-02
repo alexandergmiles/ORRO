@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -71,6 +72,16 @@ namespace Orro
 
             //Get the resposne string from the string
             return Encoding.GetEncoding("ISO-8859-1").GetString(buffer, 0, result);
+        }
+
+        public void ToJson<T>(T instance)
+        {
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(@"c:\bulbs\bulbs.json"))
+            {
+                var result = JsonConvert.SerializeObject(instance, Formatting.Indented, new DeviceConverter());
+                file.Write(result);
+            }
         }
     }
 }

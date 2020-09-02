@@ -15,9 +15,18 @@ namespace Orro
             UDPConnection udpConnection = new UDPConnection();
             
             IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
-            IDevice bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
 
-            bulb.ToJson(bulb);
+            DeviceCollection devices = new DeviceCollection();
+
+            
+            IDevice bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
+            devices.Add(bulb);
+            devices.Add(bulb);
+            devices.Add(bulb);
+
+            devices.ToJson(devices);
+
+            //bulb.ToJson(bulb);
 
 
             //The command the we need to execute
