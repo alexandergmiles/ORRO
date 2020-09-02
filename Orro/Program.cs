@@ -1,6 +1,8 @@
-﻿using Orro.Interfaces;
+﻿using Newtonsoft.Json;
+using Orro.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -16,17 +18,8 @@ namespace Orro
             
             IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
 
-            DeviceCollection devices = new DeviceCollection();
-
-            
             IDevice bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
-            devices.Add(bulb);
-            devices.Add(bulb);
-            devices.Add(bulb);
 
-            devices.ToJson(devices, @"C:/bulbs/bulbs.json");
-            var result = devices.FromJson<DeviceCollection>(@"C:/bulbs/bulbs.json");
-            Console.WriteLine(result);
             //bulb.ToJson(bulb);
 
 

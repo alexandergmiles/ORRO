@@ -87,7 +87,7 @@ namespace Orro
         public T FromJson<T>(string location)
         {
             var JSON = File.ReadAllText(location);
-            var result = JsonConvert.DeserializeObject<T>(JSON, new DeviceCollectionConverter());
+            var result = JsonConvert.DeserializeObject<T>(JSON, new DeviceConverter());
 
             if (result is T)
             {
