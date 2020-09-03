@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Orro.Interfaces
 {
@@ -17,5 +18,6 @@ namespace Orro.Interfaces
         Func<string, Socket, IPEndPoint, string> CommunicationMethod { get; }
         void ExecuteCommand(string command);
 
+        DataItem GetValuesFromDevice();
     }
 }

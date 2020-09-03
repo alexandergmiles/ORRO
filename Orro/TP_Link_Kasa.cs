@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Orro.Interfaces;
 
@@ -97,6 +98,11 @@ namespace Orro
             {
                 throw new Exception($"This should ony be used to access {typeof(T)} devices!");
             }
+        }
+
+        public DataItem GetValuesFromDevice()
+        {
+            return new DataItem();
         }
     }
 }

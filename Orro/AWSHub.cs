@@ -5,29 +5,37 @@ using System.Text;
 
 namespace Orro
 {
-    class Hub : IHub
+    sealed class AWSHub : IHub
     {
-        //Our list of devices
         IList<IDevice> devices = new List<IDevice>();
+        public void Add(IDevice device)
+        {
+            devices.Add(device);
+        }
 
-        //Add a device to the list
-        public void Add(IDevice device) => devices.Add(device);
-        public void Remove(IDevice device) => devices.Remove(device);
-        public void Remove(int index) => devices.Remove(devices[index]);
-
-        //Get the value from the device
-        //IHub will have a communication destination
-        //AWSHub for example
-        //LocalHub
         public DataItem GetValueFromDevice(IDevice device)
         {
-            //Get the current value from the device
             return device.GetValuesFromDevice();
+        }
+
+        public DataItem StreamValueFromDevice(IDevice device)
+        {
+            return device.GetValuesFromDevice();
+        }
+
+        public void Remove(IDevice device)
+        {
+            devices.Remove(device);
+        }
+
+        public void Remove(int index)
+        {
+            devices.Remove(devices[index]);
         }
 
         public bool WriteToRemoteSource(List<DataItem> dataItems)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
         public DataItem StreamValueFromdDevice(IDevice device)
