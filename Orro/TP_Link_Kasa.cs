@@ -74,16 +74,16 @@ namespace Orro
             return Encoding.GetEncoding("ISO-8859-1").GetString(buffer, 0, result);
         }
 
-        public void ToJson<T>(T instance, string location)
+        public void ToJson(string location)
         {
             // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(@"c:\bulbs\bulbs.json"))
+            using (StreamWriter file = File.CreateText(location))
             {
-                var result = JsonConvert.SerializeObject(instance, Formatting.Indented, new DeviceConverter());
+                var result = JsonConvert.SerializeObject(this, Formatting.Indented, new DeviceConverter());
                 file.Write(result);
             }
         }
-
+         
         public T FromJson<T>(string location)
         {
             var JSON = File.ReadAllText(location);

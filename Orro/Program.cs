@@ -20,9 +20,7 @@ namespace Orro
 
             IDevice bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
 
-            //bulb.ToJson(bulb);
-
-
+            bulb.ToJson(@"C:/bulb/bulbs.json");
             //The command the we need to execute
             //bulb.ExecuteCommand("{\"system\":{\"get_sysinfo\":\"\"}}");
 

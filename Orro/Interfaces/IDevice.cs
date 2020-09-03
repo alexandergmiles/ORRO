@@ -13,10 +13,7 @@ namespace Orro.Interfaces
     {
         IEncryption Encryption { get; }
         IConnector Connection { get; }
-
-        [JsonIgnore]
         IPEndPoint DeviceIP { get; }
-        [JsonIgnore]
         Func<string, Socket, IPEndPoint, string> CommunicationMethod { get; }
         void ExecuteCommand(string command);
 

@@ -8,8 +8,9 @@ namespace Orro.Interfaces
 {
     interface IStorable
     {
+
         T FromJson<T>(string location);
 
-        void ToJson<T>(T instance, string location);
+        void ToJson(string location);
     }
 }
