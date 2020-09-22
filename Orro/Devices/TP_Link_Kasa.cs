@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Orro.Interfaces;
 
-namespace Orro
+namespace Orro.Devices
 {
-    class TP_Link_Kasa : IDevice
+    class TP_Link_Kasa : IDevice, IStreamable
     {
         public IPEndPoint DeviceIP { get; }
 
@@ -36,24 +36,9 @@ namespace Orro
             CommunicationMethod = commMethod;
         }
 
-        public void ExecuteCommand(string command)
+        public void ExecuteCommand(ICommand command)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-
-            //Parameterise the string, lol no parameters
-            var parameterisedString = Encryption.ParameteriseCommandString(command, parameters);
-
-            //Encrypt the command string
-            var encryptedString = Encryption.EncryptCommand(parameterisedString);
-
-            var socket = Connection.CreateConnectionSocket(DeviceIP);
-
-            //Execuite the actual command
-            var resultOfCommandEncrypted = CommunicationMethod.Invoke(encryptedString, socket, DeviceIP);
-
-            var decryptedResult = Encryption.DecryptResponse(resultOfCommandEncrypted);
-
-            Console.WriteLine(decryptedResult);
+            command.Execute(this);   
         }
 
         private string DefaultCommunicationMethod(string command, Socket socket, IPEndPoint deviceIP)
@@ -100,9 +85,23 @@ namespace Orro
             }
         }
 
-        public DataItem GetValuesFromDevice()
+        /// <summary>
+        /// GetValuesFromDevice will get a specified value from the device. 
+        /// </summary>
+        /// <typeparam name="T">The return type of the command</typeparam>
+        /// <returns></returns>
+        public async Task<DataItem<T>>GetValuesFromDeviceAsync<T>()
         {
-            return new DataItem();
+           return await Task.Run(() =>
+           {
+               return new DataItem<T>("Power", generateValues<T>());
+           });
+        }
+
+        public T generateValues<T>()
+        {
+            Random rnd = new Random();
+            return (T)Convert.ChangeType((rnd.NextDouble()), typeof(T));
         }
     }
 }

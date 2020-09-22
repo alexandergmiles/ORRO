@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Orro
 {
-    class Hub : IHub
+    class Hub
     {
         //Our list of devices
         IList<IDevice> devices = new List<IDevice>();
@@ -19,20 +19,20 @@ namespace Orro
         //IHub will have a communication destination
         //AWSHub for example
         //LocalHub
-        public DataItem GetValueFromDevice(IDevice device)
-        {
-            //Get the current value from the device
-            return device.GetValuesFromDevice();
-        }
+        //public DataItem GetValueFromDevice(IDevice device)
+        //{
+        //    //Get the current value from the device
+        //    return device.GetValuesFromDevice();
+        //}
 
-        public bool WriteToRemoteSource(List<DataItem> dataItems)
-        {
-            return true;
-        }
+        //public bool WriteToRemoteSource(List<DataItem> dataItems)
+        //{
+        //    return true;
+        //}
 
-        public DataItem StreamValueFromdDevice(IDevice device)
-        {
-            throw new NotImplementedException();
-        }
+        //public DataItem StreamValueFromdDevice(IDevice device)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

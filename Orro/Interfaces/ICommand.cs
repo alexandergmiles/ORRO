@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Orro.Interfaces
 {
-    interface IStreamable
+    interface ICommand
     {
-        Task<DataItem<T>> GetValuesFromDeviceAsync<T>();
+        string GetCommandString();
+
+        void Execute(IDevice device);
     }
 }

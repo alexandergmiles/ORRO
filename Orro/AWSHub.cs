@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Orro
 {
-    sealed class AWSHub : IHub
+    sealed class AWSHub 
     {
         IList<IDevice> devices = new List<IDevice>();
         public void Add(IDevice device)
@@ -13,34 +13,34 @@ namespace Orro
             devices.Add(device);
         }
 
-        public DataItem GetValueFromDevice(IDevice device)
-        {
-            return device.GetValuesFromDevice();
-        }
+        //public DataItem GetValueFromDevice(IDevice device)
+        //{
+        //    return device.GetValuesFromDevice();
+        //}
 
-        public DataItem StreamValueFromDevice(IDevice device)
-        {
-            return device.GetValuesFromDevice();
-        }
+        //public DataItem StreamValueFromDevice(IDevice device)
+        //{
+        //    return device.GetValuesFromDevice();
+        //}
 
-        public void Remove(IDevice device)
-        {
-            devices.Remove(device);
-        }
+        //public void Remove(IDevice device)
+        //{
+        //    devices.Remove(device);
+        //}
 
-        public void Remove(int index)
-        {
-            devices.Remove(devices[index]);
-        }
+        //public void Remove(int index)
+        //{
+        //    devices.Remove(devices[index]);
+        //}
 
-        public bool WriteToRemoteSource(List<DataItem> dataItems)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool WriteToRemoteSource(List<DataItem> dataItems)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public DataItem StreamValueFromdDevice(IDevice device)
-        {
-            throw new NotImplementedException();
-        }
+        //public DataItem StreamValueFromdDevice(IDevice device)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

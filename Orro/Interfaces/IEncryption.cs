@@ -8,6 +8,13 @@ namespace Orro.Interfaces
     {
         string EncryptCommand(string commandString);
         string DecryptResponse(string responseString);
-        string ParameteriseCommandString(string commandString, Dictionary<string, object> parameterValues);
+        public string ParameteriseCommandString(string commandString, Dictionary<string, string> parameterValues)
+        {
+            foreach (var parameter in parameterValues)
+            {
+                commandString = commandString.Replace(parameter.Key, parameter.Value);
+            }
+            return commandString;
+        }
     }
 }

@@ -9,10 +9,10 @@ namespace Orro.Interfaces
         public void Add(IDevice device);
         public void Remove(IDevice device);
         public void Remove(int index);
-        public DataItem GetValueFromDevice(IDevice device);
+        //public DataItem GetValueFromDevice(IDevice device);
 
-        public DataItem StreamValueFromdDevice(IDevice device);
+        //public DataItem StreamValueFromdDevice(IDevice device);
 
-        public bool WriteToRemoteSource(List<DataItem> dataItems);
+        //public bool WriteToRemoteSource(List<DataItem> dataItems);
     }
 }

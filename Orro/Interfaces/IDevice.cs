@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 
 namespace Orro.Interfaces
 {
-    interface IDevice : IStorable
+    interface IDevice : IStorable, IStreamable
     {
         IEncryption Encryption { get; }
         IConnector Connection { get; }
         IPEndPoint DeviceIP { get; }
         Func<string, Socket, IPEndPoint, string> CommunicationMethod { get; }
-        void ExecuteCommand(string command);
-
-        DataItem GetValuesFromDevice();
+        void ExecuteCommand(ICommand command);
     }
 }

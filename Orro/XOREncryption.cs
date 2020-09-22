@@ -54,14 +54,5 @@ namespace Orro
             //Return the result of the encryption
             return commandToSendToDevice.ToString();
         }
-
-        public string ParameteriseCommandString(string commandString, Dictionary<string, object> parameterValues)
-        {
-            foreach (var parameter in parameterValues)
-            {
-                commandString = commandString.Replace(parameter.Key.ToString(), parameter.Value.ToString());
-            }
-            return commandString;
-        }
     }
 }
