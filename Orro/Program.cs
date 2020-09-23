@@ -35,7 +35,10 @@ namespace Orro
 
             //The command the we need to execute
             ICommand getBulbInfo = new Kasa_GetBulbInfo();
+            ICommand getBulbLightInfo = new Kasa_GetLight();
+            
             bulb.ExecuteCommand(getBulbInfo);
+            bulb.ExecuteCommand(getBulbLightInfo);
 
             //bulb.ExecuteCommand("{\"smartlife.iot.smartbulb.lightingservice\":{\"get_light_state\":\"\"}}");
 
