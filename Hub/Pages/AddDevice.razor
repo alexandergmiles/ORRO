@@ -1,0 +1,31 @@
+﻿@page "/AddDevice"
+
+<span>Device name</span>
+<input @bind="Name" />
+<span>IP Address</span>
+<input @bind="IPAddress" />
+<span>Type</span>
+<input @bind="Type" />
+
+
+<button @onclick="AddDeviceToList">Add device!</button>
+
+@code {
+    Dictionary<string, string> OptionsForEncryption = new Dictionary<string, string> { { "XOR", "XOR Encryption" }, { "NAND", "NAND Encryption" } };
+
+    List<Engine.Interfaces.IDevice> devices = new List<Engine.Interfaces.IDevice>();
+
+    [Parameter]
+    public string IPAddress { get; set; }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Type { get; set; }
+
+    void AddDeviceToList()
+    {
+
+    }
+}

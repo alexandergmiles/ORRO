@@ -1,0 +1,27 @@
+﻿@using Engine;
+@using Engine.Devices;
+@using Engine.Interfaces;
+@using Engine.Commands;
+@using System.Net;
+
+@page "/bulb"
+
+<button @onclick="GetBulbInfo">Get bulb info</button>
+<code>Message: @Message</code>
+@code {
+    [Parameter]
+    public string Message { get; set; }
+
+    void GetBulbInfo()
+    {
+        IEncryption enc = new XOREncryption();
+        IConnector udpConnection = new UDPConnection();
+        IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
+
+        TP_Link_Kasa bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
+
+        Kasa_GetBulbInfo info = new Kasa_GetBulbInfo();
+
+        Message = bulb.ExecuteCommand(info);
+    }
+}
