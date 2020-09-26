@@ -10,9 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Hub.Data;
-using Blazorise.Bootstrap;
-using Blazorise.Icons.FontAwesome;
-using Blazorise;
+
 
 namespace Hub
 {
@@ -32,7 +30,6 @@ namespace Hub
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddBlazorise(options => { options.ChangeTextOnKeyPress = true; }).AddBootstrapProviders().AddFontAwesomeIcons();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +50,7 @@ namespace Hub
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.ApplicationServices.UseBootstrapProviders().UseFontAwesomeIcons();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

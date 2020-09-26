@@ -1,31 +1,121 @@
-﻿@page "/AddDevice"
+﻿@using Engine;
+@using Engine.Interfaces;
+@using Engine.Devices;
+@using System.Net;
+
+@page "/AddDevice"
 
 <span>Device name</span>
+<br />
 <input @bind="Name" />
+<br />
 <span>IP Address</span>
+<br />
 <input @bind="IPAddress" />
-<span>Type</span>
-<input @bind="Type" />
+<br />
+<span>Socket</span>
+<br />
+<input type="number" @bind="Socket" />
+<br />
+<span>Encryption</span>
+<br />
+<select @bind="Encryption">
+    @foreach(var item in deviceEncryptions)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
 
+<br />
+<span>Connection</span>
+<br />
+<select @bind="Connector">
+    @foreach (var item in deviceConnectionTypes)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
+<br />
+<span>Type</span>
+<br />
+<select @bind="Type">
+    @foreach (var item in typesOfDevice)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
+<br />
 
 <button @onclick="AddDeviceToList">Add device!</button>
 
-@code {
-    Dictionary<string, string> OptionsForEncryption = new Dictionary<string, string> { { "XOR", "XOR Encryption" }, { "NAND", "NAND Encryption" } };
+<ul>
+    @foreach (var item in devices)
+    {
+        <li>@item.DeviceIP @item.ExecuteCommand(new Engine.Commands.Kasa_GetBulbInfo())</li>
+    }
+</ul>
 
+@code {
+    List<string> deviceEncryptions = new List<string> { "XOR", "NAND" };
+    List<string> deviceConnectionTypes = new List<string> { "TP Link Kasa UDP", "TP Link Kasa TCP" };
+    List<string> typesOfDevice = new List<string> { "TP Link Kasa LB130" };
     List<Engine.Interfaces.IDevice> devices = new List<Engine.Interfaces.IDevice>();
 
-    [Parameter]
     public string IPAddress { get; set; }
-
-    [Parameter]
     public string Name { get; set; }
-
-    [Parameter]
     public string Type { get; set; }
+    public string Encryption { get; set; } = "XOR";
+    public string Connector { get; set; } = "TP Link Kasa UDP";
+    public int Socket { get; set; }
 
     void AddDeviceToList()
     {
+        IEncryption enc = new XOREncryption();
+        IConnector udpConnection = new UDPConnection();
+        var ip = IPAddress.Split('.');
 
+        //Probably not the best way, but we're going to be hopefully discovering all of this automatically
+        IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[]
+            { Convert.ToByte(ip[0]),
+              Convert.ToByte(ip[1]),
+              Convert.ToByte(ip[2]),
+              Convert.ToByte(ip[3])
+                            }), Socket);
+
+
+
+        TP_Link_Kasa bulb = new TP_Link_Kasa(bulbEndpoint, GetEncryption(Encryption), GetConnector(Connector));
+
+        devices.Add(bulb);
+    }
+
+    IEncryption GetEncryption(string value)
+    {
+        IEncryption type = null;
+        switch (value)
+        {
+            case "XOR":
+                type = new XOREncryption();
+                break;
+            default:
+                break;
+        }
+
+        return type;
+    }
+
+    IConnector GetConnector(string value)
+    {
+        IConnector type = null;
+        switch (value)
+        {
+            case "TP Link Kasa UDP":
+                type = new UDPConnection();
+                break;
+            default:
+                break;
+        }
+
+        return type;
     }
 }
