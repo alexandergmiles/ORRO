@@ -8,5 +8,6 @@ namespace Engine.Interfaces
     public interface IStreamable
     {
         public Task<DataItem<T>> GetValuesFromDeviceAsync<T>();
+        public IEnumerable<DataItem<T>> StreamValuesFromDevice<T>();
     }
 }

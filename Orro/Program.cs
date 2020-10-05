@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Orro.Commands;
-using Orro.Interfaces;
+using Engine.Commands;
+using Engine.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-using Orro.Devices;
+using Engine.Devices;
 
 namespace Orro
 {
@@ -17,13 +17,12 @@ namespace Orro
     {
         static async Task Main(string[] args)
         {
-            IEncryption enc = new XOREncryption();
-            IConnector udpConnection = new UDPConnection();   
+            Engine.Interfaces.IEncryption enc = new Engine.XOREncryption();
+            Engine.Interfaces.IConnector udpConnection = new Engine.UDPConnection();
             IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
             
-            TP_Link_Kasa bulb = new TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
-
-
+            Engine.Devices.TP_Link_Kasa bulb = new Engine.Devices.TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
+            
             //IHub hub = new AWSHub();
             //hub.Add(bulb);
 
@@ -33,13 +32,13 @@ namespace Orro
             //What a cute means of storage
             //bulb.ToJson(@"C:/bulb/bulbs.json");
 
-            //The command the we need to execute
-            ICommand getBulbInfo = new Kasa_GetBulbInfo();
-            ICommand getBulbLightInfo = new Kasa_GetLight();
+            ICommand getBulbLightInfo = new Engine.Commands.Kasa_GetBulbInfo();
             
-            bulb.ExecuteCommand(getBulbInfo);
             bulb.ExecuteCommand(getBulbLightInfo);
-
+            foreach (var item in bulb.StreamValuesFromDevice<Double>())
+            {
+                Console.WriteLine(item);
+            }
             //bulb.ExecuteCommand("{\"smartlife.iot.smartbulb.lightingservice\":{\"get_light_state\":\"\"}}");
 
             Console.ReadLine();

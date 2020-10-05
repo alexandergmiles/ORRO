@@ -18,21 +18,25 @@ namespace Orro.Devices
 
         public IConnector Connection { get; }
 
+        public String Name { get; }
+
         public Func<string, Socket, IPEndPoint, string> CommunicationMethod { get; }
 
-        public TP_Link_Kasa(IPEndPoint deviceIP, IEncryption encryption, IConnector connection)
+        public TP_Link_Kasa(IPEndPoint deviceIP, IEncryption encryption, IConnector connection, String name)
         {
             DeviceIP = deviceIP;
             Encryption = encryption;
             Connection = connection;
+            Name = name;
             CommunicationMethod = DefaultCommunicationMethod;
         }
 
-        public TP_Link_Kasa(IPEndPoint deviceIP, IEncryption encryption, IConnector connection, Func<string, Socket, IPEndPoint, string> commMethod)
+        public TP_Link_Kasa(IPEndPoint deviceIP, IEncryption encryption, IConnector connection, String name, Func<string, Socket, IPEndPoint, string> commMethod)
         {
             DeviceIP = deviceIP;
             Encryption = encryption;
             Connection = connection;
+            Name = name;
             CommunicationMethod = commMethod;
         }
 

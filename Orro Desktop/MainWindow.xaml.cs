@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Engine;
+using Engine.Devices;
+using Engine.Interfaces;
 
 namespace Orro_Desktop
 {
@@ -23,6 +26,11 @@ namespace Orro_Desktop
         public MainWindow()
         {
             InitializeComponent();
+            var items = new List<IDevice>
+            {
+                new TP_Link_Kasa(new System.Net.IPEndPoint(1921681110, 9999), new XOREncryption(), new UDPConnection(), "Test bulb")
+            }; 
+            deviceListView.ItemsSource = items;
         }
     }
 }

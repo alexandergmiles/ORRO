@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Orro_Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStyle="None">
+        Title="Orro" Height="900" Width="1600" Background="#FFECECEC">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="855*" />
+            <RowDefinition Height="17*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="3" Grid.Row="0" Background="#FFECECEC" >
+            
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" Margin="10,0,0,10">
+            <Border Background="#FFF1F1F1" BorderThickness="0.5,0.5,0.5,0.5" BorderBrush="#FF646464"></Border>
+            <TextBlock Margin="10,2,0,0">Devices</TextBlock>
+            <ListView x:Name="deviceListView" Margin="10, 20, 10, 10" Background="#FFF9F9F9">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Width="12" Height="12">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="12" UriSource="C:\Users\Alexander\source\repos\Orro\Orro Desktop\Icons\lightbulb(1).png" />
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="10,0,10,10">
+            <Border Background="#FFF1F1F1" BorderThickness="0.5,0.5,0.5,0.5" BorderBrush="#FF646464"></Border>
+        </Grid>
+        <Grid Grid.ColumnSpan="3" Grid.Row="2" Background="#FF6F7CFF">
+            <Border BorderThickness="0 1 0 0" BorderBrush="#FF6F7BF9"></Border>
+        </Grid>
     </Grid>
 </Window>
+    
