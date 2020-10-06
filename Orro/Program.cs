@@ -21,7 +21,7 @@ namespace Orro
             Engine.Interfaces.IConnector udpConnection = new Engine.UDPConnection();
             IPEndPoint bulbEndpoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 110 }), 9999);
             
-            Engine.Devices.TP_Link_Kasa bulb = new Engine.Devices.TP_Link_Kasa(bulbEndpoint, enc, udpConnection);
+            Engine.Devices.TP_Link_Kasa bulb = new Engine.Devices.TP_Link_Kasa(bulbEndpoint, enc, udpConnection, "test");
             
             //IHub hub = new AWSHub();
             //hub.Add(bulb);
